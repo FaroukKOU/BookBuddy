@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookBuddy — Administrator Control Panel</title>
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    <!-- Dark Admin Sidebar injected by layout.js -->
+    <div id="sidebar-slot"></div>
+
+    <div class="main-wrapper">
+      <!-- Top Navbar injected by layout.js -->
+      <div id="navbar-slot"></div>
+
+      <main class="page-content">
+
+        <!-- Campus Operations Header -->
+        <section class="admin-ops-header">
+          <div>
+            <h2 class="ops-title">Campus operations</h2>
+            <p class="ops-subtitle">Monitor room inventory and manage every reservation across ECE campuses.</p>
+          </div>
+
+          <button type="button" id="open-add-room-btn" class="btn btn-primary">
+            <span>+ Add Room</span>
+          </button>
+        </section>
+
+        <!-- 4 KPI Metric Cards (Screen 7) -->
+        <section class="grid-4 admin-kpi-grid" aria-label="Campus KPIs">
+
+          <!-- Card 1: Primary Blue Highlighted Card -->
+          <article class="kpi-card kpi-card-primary">
+            <div class="kpi-top">
+              <span class="kpi-label">TOTAL ROOMS</span>
+              <span class="kpi-icon-box kpi-icon-light">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="3" width="16" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/>
+                </svg>
+              </span>
+            </div>
+            <div id="kpi-total-rooms" class="kpi-value">42</div>
+            <div class="kpi-subtext">Across 2 Eiffel campuses</div>
+          </article>
+
+          <!-- Card 2: Today's Bookings -->
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">TODAY'S BOOKINGS</span>
+              <span class="kpi-icon-box kpi-icon-blue">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </span>
+            </div>
+            <div id="kpi-todays-bookings" class="kpi-value">128</div>
+            <div class="kpi-subtext">18 currently active</div>
+          </article>
+
+          <!-- Card 3: Campus Occupancy -->
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">CAMPUS OCCUPANCY</span>
+              <span class="kpi-icon-box kpi-icon-green">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                </svg>
+              </span>
+            </div>
+            <div id="kpi-occupancy" class="kpi-value">74%</div>
+            <div class="kpi-subtext">+8% from last Saturday</div>
+          </article>
+
+          <!-- Card 4: Pending Requests -->
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">PENDING REQUESTS</span>
+              <span class="kpi-icon-box kpi-icon-amber">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </span>
+            </div>
+            <div id="kpi-pending" class="kpi-value">6</div>
+            <div class="kpi-subtext">Requires admin review</div>
+          </article>
+
+        </section>
+
+        <!-- Master Campus Bookings Table Card -->
+        <section class="admin-table-card">
+          <div class="table-card-header">
+            <div>
+              <h3 class="table-card-title">All campus bookings</h3>
+              <p class="table-card-sub">Live reservation activity · Updated just now</p>
+            </div>
+
+            <div class="table-filters-right">
+              <div class="table-filter-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+                </svg>
+                <select id="admin-status-filter" aria-label="Filter bookings by status">
+                  <option value="all">All statuses</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="In progress">In progress</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+
+              <div class="table-filter-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <select id="admin-campus-filter" aria-label="Filter bookings by campus">
+                  <option value="all">May 24 – 30 (All Campuses)</option>
+                  <option value="Campus Eiffel 1">Campus Eiffel 1</option>
+                  <option value="Campus Eiffel 2">Campus Eiffel 2</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Responsive Table Wrapper -->
+          <div class="table-responsive-wrapper">
+            <table class="bookings-table">
+              <thead>
+                <tr>
+                  <th>STUDENT</th>
+                  <th>ROOM / CAMPUS</th>
+                  <th>DATE &amp; TIME</th>
+                  <th>STATUS</th>
+                  <th style="text-align: right;">ADMIN ACTION</th>
+                </tr>
+              </thead>
+              <tbody id="admin-bookings-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer & Pagination -->
+          <div class="table-card-footer">
+            <span id="table-showing-label" class="showing-text">Showing 6 of 128 bookings</span>
+
+            <div class="pagination-controls" role="navigation" aria-label="Table Pagination">
+              <button type="button" class="page-btn" aria-label="Previous page">‹</button>
+              <button type="button" class="page-btn active">1</button>
+              <button type="button" class="page-btn">2</button>
+              <button type="button" class="page-btn">3</button>
+              <button type="button" class="page-btn" aria-label="Next page">›</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Modal 1: + Add New Room Modal (Pushes directly into localStorage)
+       ====================================================================== -->
+  <div id="add-room-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="add-room-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 id="add-room-title" class="modal-title">Add New Campus Room</h2>
+          <p class="modal-subtitle">Publish a new study room or lab to the BookBuddy catalog.</p>
+        </div>
+        <button type="button" id="close-add-room-btn" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="add-room-form" class="modal-body">
+        <div class="modal-row-2">
+          <div class="form-group">
+            <label for="new-room-name" class="form-label">Room Name / Number</label>
+            <input type="text" id="new-room-name" class="form-input" placeholder="e.g. Room E2-304" required />
+          </div>
+
+          <div class="form-group">
+            <label for="new-room-campus" class="form-label">Campus</label>
+            <select id="new-room-campus" class="form-select">
+              <option value="Campus Eiffel 1">Campus Eiffel 1</option>
+              <option value="Campus Eiffel 2">Campus Eiffel 2</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-row-3">
+          <div class="form-group">
+            <label for="new-room-floor" class="form-label">Floor</label>
+            <select id="new-room-floor" class="form-select">
+              <option value="Ground floor">Ground floor</option>
+              <option value="Floor 1">Floor 1</option>
+              <option value="Floor 2" selected>Floor 2</option>
+              <option value="Floor 3">Floor 3</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="new-room-category" class="form-label">Room Type</label>
+            <select id="new-room-category" class="form-select">
+              <option value="Group Work">Group Work</option>
+              <option value="Silent Study">Silent Study</option>
+              <option value="Lab">Lab</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="new-room-capacity" class="form-label">Max Capacity</label>
+            <input type="number" id="new-room-capacity" class="form-input" min="1" max="40" value="6" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Included Amenities</label>
+          <div class="amenities-checkbox-grid">
+            <label class="amenity-check-pill"><input type="checkbox" value="Whiteboard" checked /> Whiteboard</label>
+            <label class="amenity-check-pill"><input type="checkbox" value="TV" checked /> TV Display</label>
+            <label class="amenity-check-pill"><input type="checkbox" value="Projector" /> Projector</label>
+            <label class="amenity-check-pill"><input type="checkbox" value="PC stations" /> PC stations</label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancel-add-room-btn" class="btn btn-outline btn-sm">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">+ Publish Room</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Modal 2: Admin Override / Edit Reservation Modal
+       ====================================================================== -->
+  <div id="override-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="override-modal-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h2 id="override-modal-title" class="modal-title">Override Reservation</h2>
+          <p id="override-modal-sub" class="modal-subtitle">Modify booking status, room assignment, or schedule.</p>
+        </div>
+        <button type="button" id="close-override-btn" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="override-booking-form" class="modal-body">
+        <div class="modal-row-2">
+          <div class="form-group">
+            <label for="override-room" class="form-label">Assigned Room</label>
+            <input type="text" id="override-room" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="override-status" class="form-label">Reservation Status</label>
+            <select id="override-status" class="form-select">
+              <option value="Confirmed">Confirmed</option>
+              <option value="In progress">In progress</option>
+              <option value="Pending">Pending</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="override-slot" class="form-label">Time Window</label>
+          <input type="text" id="override-slot" class="form-input" placeholder="e.g. 14:00–16:00" required />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancel-override-btn" class="btn btn-outline btn-sm">Close</button>
+          <button type="submit" class="btn btn-primary btn-sm">Apply Override</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Feedback Toast -->
+  <div id="admin-toast" class="toast-banner" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

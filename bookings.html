@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookBuddy — My Bookings &amp; Schedule</title>
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/bookings.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    <!-- Shared Sidebar injected by layout.js -->
+    <div id="sidebar-slot"></div>
+
+    <div class="main-wrapper">
+      <!-- Shared Navbar injected by layout.js -->
+      <div id="navbar-slot"></div>
+
+      <main class="page-content">
+
+        <!-- Section Header Row -->
+        <div class="bookings-top-bar">
+          <div>
+            <h2 class="section-heading">Upcoming reservations</h2>
+            <p id="upcoming-count-subtitle" class="section-subtext">You have 2 rooms booked this week.</p>
+          </div>
+
+          <a href="dashboard.html" class="btn btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <span>Find another room</span>
+          </a>
+        </div>
+
+        <!-- Two-Column Workspace (Left: Reservations & History | Right: Stats & Guidelines) -->
+        <div class="bookings-layout-grid">
+
+          <!-- Left Column -->
+          <div class="bookings-main-column">
+
+            <!-- Dynamic Upcoming Reservations List -->
+            <div id="upcoming-bookings-list" class="upcoming-list" aria-live="polite"></div>
+
+            <!-- Past Bookings Section -->
+            <section class="past-bookings-section">
+              <h2 class="section-heading" style="margin-bottom: 14px;">Past bookings</h2>
+              <div id="past-bookings-card" class="past-bookings-card"></div>
+            </section>
+
+          </div>
+
+          <!-- Right Column: Study Habits Stats & Guidelines -->
+          <aside class="bookings-side-column">
+
+            <!-- Blue Study Habits Card -->
+            <div class="study-stats-card">
+              <div class="stats-sparkle-box" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                </svg>
+              </div>
+
+              <h3 id="stats-greeting-title" class="stats-card-title">Good study habits, AMINU.</h3>
+              <p id="stats-greeting-sub" class="stats-card-sub">
+                You've completed 8 focused study sessions this month.
+              </p>
+
+              <div class="stats-metrics-row">
+                <div class="stat-box">
+                  <div id="stat-hours-value" class="stat-number">14h</div>
+                  <div class="stat-label">Hours booked</div>
+                </div>
+                <div class="stat-box">
+                  <div id="stat-sessions-value" class="stat-number">8</div>
+                  <div class="stat-label">Sessions</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Guidelines Card -->
+            <div class="guidelines-card">
+              <h3 class="guidelines-title">Booking guidelines</h3>
+              <ul class="guidelines-list">
+                <li>
+                  <span class="guideline-check">✓</span>
+                  <span>Check in within 15 minutes</span>
+                </li>
+                <li>
+                  <span class="guideline-check">✓</span>
+                  <span>Leave the room clean for others</span>
+                </li>
+                <li>
+                  <span class="guideline-check">✓</span>
+                  <span>Cancel early if plans change</span>
+                </li>
+              </ul>
+            </div>
+
+          </aside>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Reservation Details & Edit Modal (Pre-filled from localStorage)
+       ====================================================================== -->
+  <div id="booking-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span id="detail-modal-badge" class="badge badge-available" style="margin-bottom: 6px;">✓ Confirmed</span>
+          <h2 id="detail-modal-title" class="modal-title">Room E1-204</h2>
+          <p id="detail-modal-meta" class="modal-subtitle">Floor 2 · Campus Eiffel 1 · Group Work</p>
+        </div>
+        <button type="button" id="detail-modal-close" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+
+      <form id="edit-booking-form" class="modal-body">
+        <div class="detail-info-grid">
+          <div class="detail-info-item">
+            <span class="detail-label">Reservation ID</span>
+            <strong id="detail-booking-id" class="detail-val">BK-2048-STU</strong>
+          </div>
+          <div class="detail-info-item">
+            <span class="detail-label">Room Amenities</span>
+            <strong id="detail-amenities" class="detail-val">Whiteboard, TV display</strong>
+          </div>
+        </div>
+
+        <div class="modal-row-2">
+          <div class="form-group">
+            <label for="edit-booking-date" class="form-label">Reservation Date</label>
+            <select id="edit-booking-date" class="form-select">
+              <option value="May 24, 2025">May 24, 2025 (Today)</option>
+              <option value="May 25, 2025">May 25, 2025</option>
+              <option value="May 26, 2025">May 26, 2025</option>
+              <option value="May 27, 2025">May 27, 2025</option>
+              <option value="May 28, 2025">May 28, 2025</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-booking-slot" class="form-label">Time Slot</label>
+            <select id="edit-booking-slot" class="form-select">
+              <option value="10:00 – 12:00">10:00 – 12:00</option>
+              <option value="12:00 – 14:00">12:00 – 14:00</option>
+              <option value="14:00 – 16:00">14:00 – 16:00</option>
+              <option value="16:00 – 18:00">16:00 – 18:00</option>
+              <option value="18:00 – 20:00">18:00 – 20:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-booking-purpose" class="form-label">Study Purpose</label>
+          <input type="text" id="edit-booking-purpose" class="form-input" placeholder="e.g. Group project sprint" />
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="modal-cancel-reservation-btn" class="btn btn-danger btn-sm">Cancel Reservation</button>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" id="detail-modal-done" class="btn btn-outline btn-sm">Close</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Feedback Toast -->
+  <div id="bookings-toast" class="toast-banner" role="status" aria-live="polite" hidden></div>
+
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/bookings.js"></script>
+</body>
+</html>
