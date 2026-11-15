@@ -1,0 +1,597 @@
+/* ==========================================================================
+   Screen 4 & 5: Student Room Explorer Dashboard & Booking Modal Styles
+   ========================================================================== */
+
+.mobile-search-bar {
+  display: none;
+  margin-bottom: 16px;
+}
+
+/* 1. Filter Toolbar (Screen 4) */
+.filter-toolbar {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: var(--shadow-xs);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filter-group-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-label-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  padding-right: 4px;
+}
+
+.filter-pill-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  transition: border-color var(--transition-fast);
+}
+
+.filter-pill-select:hover {
+  border-color: var(--color-text-muted);
+}
+
+.filter-pill-select select {
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--color-border);
+  margin: 0 4px;
+}
+
+.category-chips-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Available Only Toggle Switch */
+.filter-group-right {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  width: 40px;
+  height: 22px;
+  background-color: #CBD5E1;
+  border-radius: var(--radius-pill);
+  position: relative;
+  transition: background-color var(--transition-fast);
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition-fast);
+}
+
+.toggle-input:checked + .toggle-track {
+  background-color: var(--color-primary);
+}
+
+.toggle-input:checked + .toggle-track::after {
+  transform: translateX(18px);
+}
+
+/* 2. Results Header & Sort Control */
+.results-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.results-title {
+  font-size: 1.15rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.results-subtitle {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+}
+
+.sort-label {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.sort-select {
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  outline: none;
+}
+
+/* 3. Student Dashboard Room Card (Screen 4) */
+.explorer-room-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.explorer-room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.explorer-card-media {
+  height: 148px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.explorer-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.floating-status-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+}
+
+.explorer-card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.explorer-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.explorer-room-title {
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.seat-ratio-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.explorer-room-location {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+/* Seat Occupancy Progress Bar */
+.seat-progress-track {
+  width: 100%;
+  height: 5px;
+  background-color: #E2E8F0;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.seat-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+.seat-progress-fill.fill-available {
+  background-color: var(--color-accent);
+}
+
+.seat-progress-fill.fill-full {
+  background-color: #DC2626;
+}
+
+.amenity-pills-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.amenity-pill {
+  background-color: var(--color-bg-canvas);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+}
+
+.explorer-card-body .btn {
+  margin-top: auto;
+  height: 40px;
+}
+
+/* 4. Screen 5: Room Booking Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+
+.modal-overlay[hidden] {
+  display: none !important;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 530px;
+  background-color: var(--color-bg-surface);
+  border-radius: 16px;
+  box-shadow: var(--shadow-modal);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  animation: modalPop 0.18s ease-out;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  padding: 22px 24px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-room-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--color-accent-tint);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 1.15rem;
+  line-height: 1.4rem;
+  font-weight: 700;
+}
+
+.modal-subtitle {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.modal-close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.modal-body {
+  padding: 4px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Attendee Stepper Control (Style Guide Section 04) */
+.stepper-control {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0 10px;
+  gap: 12px;
+  background-color: var(--color-bg-surface);
+}
+
+.stepper-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-canvas);
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.stepper-count {
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 18px;
+  text-align: center;
+}
+
+.stepper-max-note {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* Start Time Slot Grid */
+.timeslot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slots-available-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--status-available-text);
+}
+
+.timeslot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.timeslot-btn {
+  height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timeslot-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.timeslot-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.timeslot-btn.disabled,
+.timeslot-btn:disabled {
+  background-color: var(--color-bg-muted);
+  border-color: var(--color-border);
+  color: #CBD5E1;
+  cursor: not-allowed;
+}
+
+/* Policy Info Banner */
+.policy-info-box {
+  background-color: var(--color-accent-tint);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.policy-check-icon {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.policy-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.policy-sub {
+  font-size: 0.72rem;
+  color: var(--color-accent);
+}
+
+/* Modal Footer */
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reservation-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-caption {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.summary-value {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.modal-confirm-btn {
+  padding: 0 22px;
+}
+
+/* Toast Banner */
+.toast-banner {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.82rem;
+  font-weight: 500;
+  z-index: 250;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .mobile-search-bar {
+    display: block;
+  }
+  .filter-divider {
+    display: none;
+  }
+  .modal-row-2 {
+    grid-template-columns: 1fr;
+  }
+  .timeslot-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
