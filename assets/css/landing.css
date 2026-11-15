@@ -1,0 +1,440 @@
+/* ==========================================================================
+   Screen 2: Public Landing & Room Discovery Styles
+   ========================================================================== */
+
+.public-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 1. Public Top Header */
+.public-header {
+  height: 74px;
+  background-color: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.campus-pill-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-bg-canvas);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  height: 36px;
+  padding: 0 10px;
+  gap: 6px;
+}
+
+.campus-pill-icon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.campus-pill-select {
+  border: none;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  outline: none;
+  padding-right: 4px;
+}
+
+.public-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.public-nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.public-nav-link:hover,
+.public-nav-link.active {
+  color: var(--color-text-primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.login-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.login-link:hover {
+  color: var(--color-primary);
+}
+
+.btn-register {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+}
+
+/* 2. Hero Section & Multi-Field Search Bar */
+.hero-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: 44px 0 42px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #DBEAFE;
+  color: var(--color-primary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-size: 2.65rem;
+  line-height: 1.14;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  max-width: 620px;
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 28px;
+}
+
+.hero-search-bar {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.search-field:hover {
+  background-color: var(--color-bg-canvas);
+}
+
+.search-field-icon {
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.search-field-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-field-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.search-field-select {
+  border: none;
+  background: transparent;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  width: 100%;
+  padding-top: 2px;
+}
+
+.field-chevron {
+  color: var(--color-text-muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.search-divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--color-border);
+}
+
+.hero-submit-btn {
+  height: 48px;
+  padding: 0 28px;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+/* 3. Main Sections & Headers */
+.public-main {
+  padding: 36px 0 64px;
+}
+
+.discovery-section {
+  margin-bottom: 48px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+.section-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}
+
+/* 4. Guest Room Cards */
+.guest-room-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.guest-room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.room-card-media {
+  height: 148px;
+  width: 100%;
+  background-color: #CBD5E1;
+  position: relative;
+  overflow: hidden;
+}
+
+.room-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.room-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.room-card-title {
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.room-card-floor {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.room-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.capacity-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--color-accent-tint);
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.amenity-text {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.guest-room-card .btn {
+  margin-top: auto;
+  height: 38px;
+  font-size: 0.82rem;
+}
+
+/* 5. Campus Happenings Cards */
+.event-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--transition-fast);
+}
+
+.event-card:hover {
+  border-color: #CBD5E1;
+}
+
+.event-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: var(--status-event-bg);
+  color: var(--status-event-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.event-type-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--status-event-text);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.event-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 3px;
+}
+
+.event-schedule {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+/* 6. Responsive Adjustments (Tablet & Mobile) */
+@media (max-width: 960px) {
+  .public-nav {
+    display: none;
+  }
+  .hero-search-bar {
+    flex-wrap: wrap;
+  }
+  .search-field {
+    flex: 1 1 calc(50% - 12px);
+  }
+  .search-divider {
+    display: none;
+  }
+  .hero-submit-btn {
+    width: 100%;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-container {
+    padding: 0 16px;
+  }
+  .campus-pill-wrapper {
+    display: none;
+  }
+  .hero-title {
+    font-size: 1.95rem;
+  }
+  .search-field {
+    flex: 1 1 100%;
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,77 @@
+/* ==========================================================================
+   BookBuddy Design System Tokens (UI Style Guide v1.0)
+   ========================================================================== */
+
+:root {
+  /* 01. Brand & Interaction Colors */
+  --color-primary: #1D4ED8;          /* Primary Brand Blue - buttons, active states */
+  --color-primary-hover: #1E40AF;    /* Darker hover shade */
+  --color-accent: #2563EB;           /* Royal Accent - focus rings, links, highlights */
+  --color-accent-tint: #EFF6FF;      /* Light blue surface for active filter chips & nav */
+  --color-accent-border: #BFDBFE;    /* Soft blue border for info banners */
+
+  /* Neutral Canvas & Surfaces */
+  --color-bg-canvas: #F8FAFC;        /* App Background */
+  --color-bg-surface: #FFFFFF;       /* Card Surface & elevated containers */
+  --color-bg-muted: #F1F5F9;         /* Subtle secondary surface (tabs, disabled states) */
+  --color-border: #E2E8F0;           /* Subtle Border - dividers & control outlines */
+
+  /* Typography & Header Colors */
+  --color-text-primary: #0F172A;     /* Slate Navy - headings & primary copy */
+  --color-text-secondary: #64748B;   /* Secondary Text - supporting copy & metadata */
+  --color-text-muted: #94A3B8;       /* Muted/Placeholder - placeholders & inactive labels */
+  --color-text-inverse: #FFFFFF;     /* White text on dark/primary backgrounds */
+
+  /* Semantic Status Colors (Paired Background + Foreground) */
+  --status-available-bg: #DCFCE7;    /* Available Green BG */
+  --status-available-text: #15803D;  /* Available Green Text */
+
+  --status-full-bg: #FEE2E2;         /* Full / Occupied Red BG */
+  --status-full-text: #B91C1C;       /* Full / Occupied Red Text */
+  --status-full-border: #FCA5A5;     /* Destructive button outline */
+
+  --status-event-bg: #FEF3C7;        /* Event / Waitlist Amber BG */
+  --status-event-text: #B45309;      /* Event / Waitlist Amber Text */
+
+  --status-progress-bg: #DBEAFE;     /* In Progress Blue BG (Admin table) */
+  --status-progress-text: #1D4ED8;   /* In Progress Blue Text */
+
+  /* 02. Typography Scale */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-brand: 'Plus Jakarta Sans', 'Inter', sans-serif;
+
+  --text-display-size: 2.25rem;      /* 36px */
+  --text-display-lh: 2.75rem;        /* 44px */
+  
+  --text-h2-size: 1.75rem;           /* 28px */
+  --text-h2-lh: 2.25rem;             /* 36px */
+
+  --text-h3-size: 1.25rem;           /* 20px */
+  --text-h3-lh: 1.75rem;             /* 28px */
+
+  --text-body-size: 0.875rem;        /* 14px */
+  --text-body-lh: 1.375rem;          /* 22px */
+
+  --text-caption-size: 0.75rem;      /* 12px */
+  --text-caption-lh: 1rem;           /* 16px */
+
+  /* 03. Layout, Dimensions & Spacing */
+  --sidebar-width: 248px;
+  --navbar-height: 72px;
+  --control-height: 42px;            /* Standard input & button height from Style Guide */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;                  /* Standard input/button corner radius */
+  --radius-lg: 12px;                 /* Room cards & modal panels */
+  --radius-xl: 16px;                 /* Hero search bar & large containers */
+  --radius-pill: 9999px;             /* Status badges & filter chips */
+
+  /* Shadows & Transitions */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.10), 0 4px 8px -2px rgba(15, 23, 42, 0.05);
+  --shadow-modal: 0 20px 32px -8px rgba(15, 23, 42, 0.22);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}

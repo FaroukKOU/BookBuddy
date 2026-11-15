@@ -1,0 +1,282 @@
+{
+  "profiles": {
+    "student": {
+      "id": "USR-01",
+      "name": "AMINU Farouk",
+      "initials": "AM",
+      "email": "faroukabdullahi.aminu@edu.ece.fr",
+      "studentId": "ECE-2025-8492",
+      "role": "student",
+      "roleLabel": "Student",
+      "stats": {
+        "hoursBooked": 14,
+        "sessionsCompleted": 8
+      }
+    },
+    "tutor": {
+      "id": "USR-02",
+      "name": "Lina Moreau",
+      "initials": "LM",
+      "email": "lina.moreau@edu.ece.fr",
+      "studentId": "ECE-2024-3104",
+      "role": "tutor",
+      "roleLabel": "Tutor & Club Lead",
+      "stats": {
+        "hoursBooked": 22,
+        "sessionsCompleted": 12
+      }
+    },
+    "admin": {
+      "id": "USR-99",
+      "name": "ECE Administrator",
+      "initials": "AD",
+      "email": "admin.operations@ece.fr",
+      "studentId": "ADM-001",
+      "role": "admin",
+      "roleLabel": "Super Admin"
+    }
+  },
+  "rooms": [
+    {
+      "id": "E1-204",
+      "name": "Room E1-204",
+      "campus": "Campus Eiffel 1",
+      "floor": "Floor 2",
+      "category": "Group Work",
+      "capacity": 6,
+      "occupiedSeats": 2,
+      "status": "available",
+      "statusText": "Available",
+      "amenities": ["Whiteboard", "TV"],
+      "image": "assets/images/room-e1-204.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)"
+    },
+    {
+      "id": "E1-108",
+      "name": "Room E1-108",
+      "campus": "Campus Eiffel 1",
+      "floor": "Floor 1",
+      "category": "Silent Study",
+      "capacity": 4,
+      "occupiedSeats": 4,
+      "status": "full",
+      "statusText": "Full",
+      "amenities": ["Whiteboard", "Monitor"],
+      "image": "assets/images/room-e1-108.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #7C2D12 0%, #B45309 100%)"
+    },
+    {
+      "id": "E1-302",
+      "name": "Room E1-302",
+      "campus": "Campus Eiffel 1",
+      "floor": "Floor 3",
+      "category": "Group Work",
+      "capacity": 10,
+      "occupiedSeats": 5,
+      "status": "available",
+      "statusText": "Available",
+      "amenities": ["Projector", "Whiteboard"],
+      "image": "assets/images/room-e1-302.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #0F172A 0%, #334155 100%)"
+    },
+    {
+      "id": "E1-G04",
+      "name": "Lab E1-G04",
+      "campus": "Campus Eiffel 1",
+      "floor": "Ground floor",
+      "category": "Lab",
+      "capacity": 8,
+      "occupiedSeats": 1,
+      "status": "available",
+      "statusText": "Available",
+      "amenities": ["PC stations", "TV"],
+      "image": "assets/images/lab-e1-g04.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #064E3B 0%, #10B981 100%)"
+    },
+    {
+      "id": "E1-211",
+      "name": "Room E1-211",
+      "campus": "Campus Eiffel 1",
+      "floor": "Floor 2",
+      "category": "Silent Study",
+      "capacity": 2,
+      "occupiedSeats": 2,
+      "status": "full",
+      "statusText": "Full",
+      "amenities": ["Monitor", "Quiet zone"],
+      "image": "assets/images/room-e1-211.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #D97706 0%, #F59E0B 100%)"
+    },
+    {
+      "id": "E1-315",
+      "name": "Room E1-315",
+      "campus": "Campus Eiffel 1",
+      "floor": "Floor 3",
+      "category": "Group Work",
+      "capacity": 6,
+      "occupiedSeats": 0,
+      "status": "available",
+      "statusText": "Available",
+      "amenities": ["Projector", "Conference"],
+      "image": "assets/images/room-e1-315.jpg",
+      "fallbackGradient": "linear-gradient(135deg, #1E293B 0%, #475569 100%)"
+    }
+  ],
+  "events": [
+    {
+      "id": "EVT-01",
+      "type": "EVENT",
+      "title": "Robotics Club: Open Lab",
+      "schedule": "Today · 17:30 · Innovation Lab G12",
+      "iconType": "calendar"
+    },
+    {
+      "id": "EVT-02",
+      "type": "TUTORING",
+      "title": "Calculus II Study Clinic",
+      "schedule": "Tomorrow · 12:00 · Room E1-108",
+      "iconType": "tutor"
+    },
+    {
+      "id": "EVT-03",
+      "type": "EVENT",
+      "title": "Debate Society Meetup",
+      "schedule": "Wed, May 28 · 18:00 · Auditorium A",
+      "iconType": "calendar"
+    }
+  ],
+  "studentBookings": [
+    {
+      "id": "BK-2048-STU",
+      "roomId": "E1-204",
+      "roomName": "Room E1-204",
+      "badgeLabel": "TODAY · NEXT UP",
+      "dateLabel": "May 24, 2025",
+      "timeSlot": "14:00 – 16:00",
+      "startsIn": "Starts in 1h 24m",
+      "locationMeta": "Floor 2 · Campus Eiffel 1 · Group Work",
+      "capacity": 6,
+      "amenities": ["Whiteboard", "TV display"],
+      "status": "Confirmed",
+      "isPrimary": true,
+      "purpose": "Software Architecture Front-End Sprint"
+    },
+    {
+      "id": "BK-2047",
+      "roomId": "E1-302",
+      "roomName": "Room E1-302",
+      "badgeLabel": "TUESDAY, MAY 27",
+      "dateLabel": "May 27, 2025",
+      "timeSlot": "10:00 – 12:00",
+      "startsIn": "",
+      "locationMeta": "Floor 3 · Campus Eiffel 1",
+      "capacity": 10,
+      "amenities": ["Projector", "Whiteboard"],
+      "status": "Confirmed",
+      "isPrimary": false,
+      "purpose": "Database SQL Join Review"
+    }
+  ],
+  "pastBookings": [
+    {
+      "id": "BK-1982",
+      "date": "May 19, 2025",
+      "roomId": "E1-G04",
+      "roomName": "Lab E1-G04",
+      "timeSlot": "16:00 – 17:00",
+      "status": "Completed"
+    },
+    {
+      "id": "BK-1940",
+      "date": "May 14, 2025",
+      "roomId": "E1-108",
+      "roomName": "Room E1-108",
+      "timeSlot": "11:00 – 13:00",
+      "status": "Completed"
+    }
+  ],
+  "adminStats": {
+    "totalRooms": 42,
+    "totalRoomsSub": "Across 2 Eiffel campuses",
+    "todaysBookings": 128,
+    "todaysBookingsSub": "18 currently active",
+    "campusOccupancy": "74%",
+    "campusOccupancySub": "+8% from last Saturday",
+    "pendingRequests": 6,
+    "pendingRequestsSub": "Requires admin review"
+  },
+  "adminBookings": [
+    {
+      "id": "BK-2048",
+      "studentName": "Lina Moreau",
+      "initials": "LM",
+      "email": "lina.moreau@edu.ece.fr",
+      "roomName": "Room E1-204",
+      "campus": "Campus Eiffel 1",
+      "date": "May 24, 2025",
+      "timeSlot": "14:00–16:00",
+      "status": "In progress",
+      "statusKey": "progress"
+    },
+    {
+      "id": "BK-2047",
+      "studentName": "AMINU Farouk",
+      "initials": "AM",
+      "email": "faroukabdullahi.aminu@edu.ece.fr",
+      "roomName": "Room E1-302",
+      "campus": "Campus Eiffel 1",
+      "date": "May 27, 2025",
+      "timeSlot": "10:00–12:00",
+      "status": "Confirmed",
+      "statusKey": "available"
+    },
+    {
+      "id": "BK-2046",
+      "studentName": "Hugo Bernard",
+      "initials": "HB",
+      "email": "hugo.bernard@edu.ece.fr",
+      "roomName": "Lab E1-G04",
+      "campus": "Campus Eiffel 1",
+      "date": "May 24, 2025",
+      "timeSlot": "16:00–18:00",
+      "status": "Confirmed",
+      "statusKey": "available"
+    },
+    {
+      "id": "BK-2045",
+      "studentName": "Sarah Cohen",
+      "initials": "SC",
+      "email": "sarah.cohen@edu.ece.fr",
+      "roomName": "Room E2-118",
+      "campus": "Campus Eiffel 2",
+      "date": "May 25, 2025",
+      "timeSlot": "09:00–11:00",
+      "status": "Confirmed",
+      "statusKey": "available"
+    },
+    {
+      "id": "BK-2044",
+      "studentName": "Noah Laurent",
+      "initials": "NL",
+      "email": "noah.laurent@edu.ece.fr",
+      "roomName": "Room E1-108",
+      "campus": "Campus Eiffel 1",
+      "date": "May 24, 2025",
+      "timeSlot": "12:00–14:00",
+      "status": "Pending",
+      "statusKey": "event"
+    },
+    {
+      "id": "BK-2043",
+      "studentName": "Inès Petit",
+      "initials": "IP",
+      "email": "ines.petit@edu.ece.fr",
+      "roomName": "Room E2-206",
+      "campus": "Campus Eiffel 2",
+      "date": "May 26, 2025",
+      "timeSlot": "15:00–17:00",
+      "status": "Confirmed",
+      "statusKey": "available"
+    }
+  ]
+}
