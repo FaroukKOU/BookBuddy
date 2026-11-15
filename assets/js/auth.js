@@ -1,9 +1,3 @@
-/**
- * Screen 3: Authentication Logic
- * Manages the Log In / Register tab state, institutional email check,
- * and client-side session persistence in localStorage.
- */
-
 document.addEventListener('DOMContentLoaded', async () => {
   await window.BookBuddyStore.init();
 

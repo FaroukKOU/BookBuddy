@@ -1,9 +1,3 @@
-/**
- * Screen 6: My Bookings & Schedule Management Logic
- * Manages upcoming reservation display, editing via modal, cancellation,
- * and automatic synchronization with room seat availability.
- */
-
 document.addEventListener('DOMContentLoaded', async () => {
   await initLayout({
     activePage: 'bookings',

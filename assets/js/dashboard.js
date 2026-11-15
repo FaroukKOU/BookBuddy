@@ -1,61 +1,66 @@
-/**
- * Screen 4 & 5: Student Room Explorer Dashboard & Booking Modal Logic
- * Manages live filtering, room card rendering, and reservation persistence.
- */
-
 const ROOM_IMAGE_FALLBACKS = {
-  'E1-204': 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80',
-  'E1-108': 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80',
-  'E1-302': 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=700&q=80',
-  'E1-G04': 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80',
-  'E1-211': 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=700&q=80',
-  'E1-315': 'https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=700&q=80'
+  "E1-204":
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80",
+  "E1-108":
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80",
+  "E1-302":
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=700&q=80",
+  "E1-G04":
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80",
+  "E1-211":
+    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=700&q=80",
+  "E1-315":
+    "https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=700&q=80",
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await initLayout({
-    activePage: 'dashboard',
-    title: 'Explore rooms',
-    subtitle: 'Find your perfect study space.',
-    searchPlaceholder: 'Search room number or amenities...',
-    isAdminPage: false
+    activePage: "dashboard",
+    title: "Explore rooms",
+    subtitle: "Find your perfect study space.",
+    searchPlaceholder: "Search room number or amenities...",
+    isAdminPage: false,
   });
 
   // DOM References - Filters & Grid
-  const roomsGrid = document.getElementById('dashboard-rooms-grid');
-  const resultsSubtitle = document.getElementById('results-subtitle');
-  const globalSearchInput = document.getElementById('global-search-input');
-  const mobileSearchInput = document.getElementById('mobile-search-input');
-  const filterCampus = document.getElementById('filter-campus');
-  const filterFloor = document.getElementById('filter-floor');
-  const filterCapacity = document.getElementById('filter-capacity');
-  const categoryChips = document.querySelectorAll('.category-chips-group .chip');
-  const toggleAvailableOnly = document.getElementById('toggle-available-only');
-  const sortSelect = document.getElementById('sort-rooms');
-  const toastEl = document.getElementById('dashboard-toast');
+  const roomsGrid = document.getElementById("dashboard-rooms-grid");
+  const resultsSubtitle = document.getElementById("results-subtitle");
+  const globalSearchInput = document.getElementById("global-search-input");
+  const mobileSearchInput = document.getElementById("mobile-search-input");
+  const filterCampus = document.getElementById("filter-campus");
+  const filterFloor = document.getElementById("filter-floor");
+  const filterCapacity = document.getElementById("filter-capacity");
+  const categoryChips = document.querySelectorAll(
+    ".category-chips-group .chip",
+  );
+  const toggleAvailableOnly = document.getElementById("toggle-available-only");
+  const sortSelect = document.getElementById("sort-rooms");
+  const toastEl = document.getElementById("dashboard-toast");
 
   // DOM References - Booking Modal
-  const modalOverlay = document.getElementById('booking-modal-overlay');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-  const modalForm = document.getElementById('booking-modal-form');
-  const modalRoomTitle = document.getElementById('modal-room-title');
-  const modalRoomMeta = document.getElementById('modal-room-meta');
-  const modalDate = document.getElementById('modal-date');
-  const modalDuration = document.getElementById('modal-duration');
-  const modalCategory = document.getElementById('modal-category');
-  const modalPurpose = document.getElementById('modal-purpose');
-  const modalSummaryText = document.getElementById('modal-summary-text');
-  const timeslotBtns = document.querySelectorAll('#modal-timeslot-grid .timeslot-btn:not(.disabled)');
-  const stepperDec = document.getElementById('stepper-dec');
-  const stepperInc = document.getElementById('stepper-inc');
-  const stepperValue = document.getElementById('stepper-value');
-  const stepperMaxLabel = document.getElementById('stepper-max-label');
+  const modalOverlay = document.getElementById("booking-modal-overlay");
+  const modalCloseBtn = document.getElementById("modal-close-btn");
+  const modalForm = document.getElementById("booking-modal-form");
+  const modalRoomTitle = document.getElementById("modal-room-title");
+  const modalRoomMeta = document.getElementById("modal-room-meta");
+  const modalDate = document.getElementById("modal-date");
+  const modalDuration = document.getElementById("modal-duration");
+  const modalCategory = document.getElementById("modal-category");
+  const modalPurpose = document.getElementById("modal-purpose");
+  const modalSummaryText = document.getElementById("modal-summary-text");
+  const timeslotBtns = document.querySelectorAll(
+    "#modal-timeslot-grid .timeslot-btn:not(.disabled)",
+  );
+  const stepperDec = document.getElementById("stepper-dec");
+  const stepperInc = document.getElementById("stepper-inc");
+  const stepperValue = document.getElementById("stepper-value");
+  const stepperMaxLabel = document.getElementById("stepper-max-label");
 
   // Active Filter & Modal State
-  let activeCategory = 'all';
-  let searchQuery = '';
+  let activeCategory = "all";
+  let searchQuery = "";
   let selectedRoom = null;
-  let selectedStartTime = '14:00';
+  let selectedStartTime = "14:00";
   let attendeeCount = 4;
 
   function showToast(message) {
@@ -80,17 +85,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sortVal = sortSelect.value;
 
     const filtered = rooms.filter((room) => {
-      if (campusVal !== 'all' && room.campus !== campusVal) return false;
-      if (floorVal !== 'all' && room.floor !== floorVal) return false;
-      if (activeCategory !== 'all' && room.category !== activeCategory) return false;
-      if (onlyAvailable && room.status !== 'available') return false;
+      if (campusVal !== "all" && room.campus !== campusVal) return false;
+      if (floorVal !== "all" && room.floor !== floorVal) return false;
+      if (activeCategory !== "all" && room.category !== activeCategory)
+        return false;
+      if (onlyAvailable && room.status !== "available") return false;
 
-      if (capVal === 'small' && room.capacity > 4) return false;
-      if (capVal === 'medium' && (room.capacity < 4 || room.capacity > 6)) return false;
-      if (capVal === 'large' && room.capacity < 8) return false;
+      if (capVal === "small" && room.capacity > 4) return false;
+      if (capVal === "medium" && (room.capacity < 4 || room.capacity > 6))
+        return false;
+      if (capVal === "large" && room.capacity < 8) return false;
 
       if (searchQuery) {
-        const haystack = `${room.name} ${room.floor} ${room.category} ${room.amenities.join(' ')}`.toLowerCase();
+        const haystack =
+          `${room.name} ${room.floor} ${room.category} ${room.amenities.join(" ")}`.toLowerCase();
         if (!haystack.includes(searchQuery)) return false;
       }
       return true;
@@ -98,11 +106,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Apply sorting
     filtered.sort((a, b) => {
-      if (sortVal === 'available-first') {
-        return (a.status === 'available' ? -1 : 1) - (b.status === 'available' ? -1 : 1);
+      if (sortVal === "available-first") {
+        return (
+          (a.status === "available" ? -1 : 1) -
+          (b.status === "available" ? -1 : 1)
+        );
       }
-      if (sortVal === 'capacity-desc') return b.capacity - a.capacity;
-      if (sortVal === 'capacity-asc') return a.capacity - b.capacity;
+      if (sortVal === "capacity-desc") return b.capacity - a.capacity;
+      if (sortVal === "capacity-asc") return a.capacity - b.capacity;
       return 0;
     });
 
@@ -128,42 +139,49 @@ document.addEventListener('DOMContentLoaded', async () => {
           <button type="button" id="reset-filters-btn" class="btn btn-outline btn-sm">Reset Filters</button>
         </div>
       `;
-      const resetBtn = document.getElementById('reset-filters-btn');
+      const resetBtn = document.getElementById("reset-filters-btn");
       if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-          filterCampus.value = 'all';
-          filterFloor.value = 'all';
-          filterCapacity.value = 'all';
+        resetBtn.addEventListener("click", () => {
+          filterCampus.value = "all";
+          filterFloor.value = "all";
+          filterCapacity.value = "all";
           toggleAvailableOnly.checked = false;
-          activeCategory = 'all';
-          searchQuery = '';
-          if (globalSearchInput) globalSearchInput.value = '';
-          if (mobileSearchInput) mobileSearchInput.value = '';
-          categoryChips.forEach((c) => c.classList.toggle('active', c.dataset.category === 'all'));
+          activeCategory = "all";
+          searchQuery = "";
+          if (globalSearchInput) globalSearchInput.value = "";
+          if (mobileSearchInput) mobileSearchInput.value = "";
+          categoryChips.forEach((c) =>
+            c.classList.toggle("active", c.dataset.category === "all"),
+          );
           renderExplorerRooms();
         });
       }
       return;
     }
 
-    roomsGrid.innerHTML = rooms.map((room) => {
-      const isAvailable = room.status === 'available';
-      const badgeClass = isAvailable ? 'badge-available' : 'badge-full';
-      const badgeSymbol = isAvailable ? '✓' : '✕';
-      const fillPercent = Math.min(100, Math.round((room.occupiedSeats / room.capacity) * 100));
-      const barWidth = fillPercent === 0 ? 12 : fillPercent;
-      const barColorClass = isAvailable ? 'fill-available' : 'fill-full';
-      const fallbackImg = ROOM_IMAGE_FALLBACKS[room.id] || ROOM_IMAGE_FALLBACKS['E1-204'];
+    roomsGrid.innerHTML = rooms
+      .map((room) => {
+        const isAvailable = room.status === "available";
+        const badgeClass = isAvailable ? "badge-available" : "badge-full";
+        const badgeSymbol = isAvailable ? "✓" : "✕";
+        const fillPercent = Math.min(
+          100,
+          Math.round((room.occupiedSeats / room.capacity) * 100),
+        );
+        const barWidth = fillPercent === 0 ? 12 : fillPercent;
+        const barColorClass = isAvailable ? "fill-available" : "fill-full";
+        const fallbackImg =
+          ROOM_IMAGE_FALLBACKS[room.id] || ROOM_IMAGE_FALLBACKS["E1-204"];
 
-      const amenitiesHTML = room.amenities
-        .map((a) => `<span class="amenity-pill">${a}</span>`)
-        .join('');
+        const amenitiesHTML = room.amenities
+          .map((a) => `<span class="amenity-pill">${a}</span>`)
+          .join("");
 
-      const buttonHTML = isAvailable
-        ? `<button type="button" class="btn btn-primary btn-block js-book-room" data-room-id="${room.id}">Book Room →</button>`
-        : `<button type="button" class="btn btn-outline btn-block js-join-waitlist" data-room-name="${room.name}">Join waitlist →</button>`;
+        const buttonHTML = isAvailable
+          ? `<button type="button" class="btn btn-primary btn-block js-book-room" data-room-id="${room.id}">Book Room →</button>`
+          : `<button type="button" class="btn btn-outline btn-block js-join-waitlist" data-room-name="${room.name}">Join waitlist →</button>`;
 
-      return `
+        return `
         <article class="explorer-room-card">
           <div class="explorer-card-media" style="background: ${room.fallbackGradient};">
             <img
@@ -200,19 +218,22 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </article>
       `;
-    }).join('');
+      })
+      .join("");
 
     // Bind Book Room buttons
-    document.querySelectorAll('.js-book-room').forEach((btn) => {
-      btn.addEventListener('click', () => openBookingModal(btn.dataset.roomId));
+    document.querySelectorAll(".js-book-room").forEach((btn) => {
+      btn.addEventListener("click", () => openBookingModal(btn.dataset.roomId));
     });
 
     // Bind Join Waitlist buttons
-    document.querySelectorAll('.js-join-waitlist').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        btn.textContent = 'Waitlist Joined ✓';
+    document.querySelectorAll(".js-join-waitlist").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.textContent = "Waitlist Joined ✓";
         btn.disabled = true;
-        showToast(`Added to waitlist for ${btn.dataset.roomName}. We'll notify you if a spot opens.`);
+        showToast(
+          `Added to waitlist for ${btn.dataset.roomName}. We'll notify you if a spot opens.`,
+        );
       });
     });
   }
@@ -221,15 +242,15 @@ document.addEventListener('DOMContentLoaded', async () => {
    * Computes end time string (e.g., "14:00" + 2 hours -> "14:00–16:00")
    */
   function computeTimeRange(startStr, durationHours) {
-    const startHour = parseInt(startStr.split(':')[0], 10);
+    const startHour = parseInt(startStr.split(":")[0], 10);
     const endHour = Math.min(23, startHour + Number(durationHours));
-    const formattedEnd = `${String(endHour).padStart(2, '0')}:00`;
+    const formattedEnd = `${String(endHour).padStart(2, "0")}:00`;
     return `${startStr}–${formattedEnd}`;
   }
 
   function updateModalSummary() {
     const selectedOption = modalDate.options[modalDate.selectedIndex];
-    const shortDate = selectedOption ? selectedOption.dataset.short : 'May 24';
+    const shortDate = selectedOption ? selectedOption.dataset.short : "May 24";
     const range = computeTimeRange(selectedStartTime, modalDuration.value);
     modalSummaryText.textContent = `${shortDate} · ${range}`;
   }
@@ -249,8 +270,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     attendeeCount = Math.min(4, selectedRoom.capacity);
     stepperValue.textContent = attendeeCount;
     stepperMaxLabel.textContent = `Max ${selectedRoom.capacity}`;
-    modalCategory.value = selectedRoom.category === 'Silent Study' ? 'Group Work' : 'Group Work';
-    modalPurpose.value = '';
+    modalCategory.value =
+      selectedRoom.category === "Silent Study" ? "Group Work" : "Group Work";
+    modalPurpose.value = "";
 
     updateModalSummary();
     modalOverlay.hidden = false;
@@ -262,22 +284,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Modal Event Listeners
-  modalCloseBtn.addEventListener('click', closeBookingModal);
-  modalOverlay.addEventListener('click', (e) => {
+  modalCloseBtn.addEventListener("click", closeBookingModal);
+  modalOverlay.addEventListener("click", (e) => {
     if (e.target === modalOverlay) closeBookingModal();
   });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modalOverlay.hidden) closeBookingModal();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modalOverlay.hidden) closeBookingModal();
   });
 
   // Stepper Controls
-  stepperDec.addEventListener('click', () => {
+  stepperDec.addEventListener("click", () => {
     if (attendeeCount > 1) {
       attendeeCount--;
       stepperValue.textContent = attendeeCount;
     }
   });
-  stepperInc.addEventListener('click', () => {
+  stepperInc.addEventListener("click", () => {
     const maxCap = selectedRoom ? selectedRoom.capacity : 6;
     if (attendeeCount < maxCap) {
       attendeeCount++;
@@ -287,28 +309,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Time Slot Selection
   timeslotBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      timeslotBtns.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
+    btn.addEventListener("click", () => {
+      timeslotBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
       selectedStartTime = btn.dataset.time;
       updateModalSummary();
     });
   });
 
-  modalDate.addEventListener('change', updateModalSummary);
-  modalDuration.addEventListener('change', updateModalSummary);
+  modalDate.addEventListener("change", updateModalSummary);
+  modalDuration.addEventListener("change", updateModalSummary);
 
   /**
    * Saves new reservation to localStorage and updates room occupancy immediately
    */
-  modalForm.addEventListener('submit', (e) => {
+  modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!selectedRoom) return;
 
     const timeRange = computeTimeRange(selectedStartTime, modalDuration.value);
     const selectedDateOpt = modalDate.options[modalDate.selectedIndex];
     const dateFull = modalDate.value;
-    const shortDate = selectedDateOpt ? selectedDateOpt.dataset.short.toUpperCase() : 'MAY 24';
+    const shortDate = selectedDateOpt
+      ? selectedDateOpt.dataset.short.toUpperCase()
+      : "MAY 24";
     const purposeText = modalPurpose.value.trim() || modalCategory.value;
     const profile = window.BookBuddyStore.getCurrentProfile();
 
@@ -320,16 +344,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       id: newBookingId,
       roomId: selectedRoom.id,
       roomName: selectedRoom.name,
-      badgeLabel: shortDate === 'MAY 24' ? 'TODAY · NEXT UP' : shortDate,
+      badgeLabel: shortDate === "MAY 24" ? "TODAY · NEXT UP" : shortDate,
       dateLabel: dateFull,
-      timeSlot: timeRange.replace('–', ' – '),
-      startsIn: 'Just booked',
+      timeSlot: timeRange.replace("–", " – "),
+      startsIn: "Just booked",
       locationMeta: `${selectedRoom.floor} · ${selectedRoom.campus} · ${selectedRoom.category}`,
       capacity: selectedRoom.capacity,
       amenities: selectedRoom.amenities,
-      status: 'Confirmed',
+      status: "Confirmed",
       isPrimary: true,
-      purpose: purposeText
+      purpose: purposeText,
     });
     window.BookBuddyStore.saveStudentBookings(studentBookings);
 
@@ -344,8 +368,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       campus: selectedRoom.campus,
       date: dateFull,
       timeSlot: timeRange,
-      status: 'Confirmed',
-      statusKey: 'available'
+      status: "Confirmed",
+      statusKey: "available",
     });
     window.BookBuddyStore.saveAdminBookings(adminBookings);
 
@@ -353,16 +377,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const rooms = window.BookBuddyStore.getRooms();
     const targetRoom = rooms.find((r) => r.id === selectedRoom.id);
     if (targetRoom) {
-      targetRoom.occupiedSeats = Math.min(targetRoom.capacity, targetRoom.occupiedSeats + attendeeCount);
+      targetRoom.occupiedSeats = Math.min(
+        targetRoom.capacity,
+        targetRoom.occupiedSeats + attendeeCount,
+      );
       if (targetRoom.occupiedSeats >= targetRoom.capacity) {
-        targetRoom.status = 'full';
-        targetRoom.statusText = 'Full';
+        targetRoom.status = "full";
+        targetRoom.statusText = "Full";
       }
       window.BookBuddyStore.saveRooms(rooms);
     }
 
     // 4. Update sidebar booking count pill & re-render cards
-    const countPill = document.getElementById('sidebar-booking-count');
+    const countPill = document.getElementById("sidebar-booking-count");
     if (countPill) countPill.textContent = studentBookings.length;
 
     const bookedName = selectedRoom.name;
@@ -377,24 +404,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderExplorerRooms();
   }
 
-  if (globalSearchInput) globalSearchInput.addEventListener('input', handleSearchInput);
-  if (mobileSearchInput) mobileSearchInput.addEventListener('input', handleSearchInput);
+  if (globalSearchInput)
+    globalSearchInput.addEventListener("input", handleSearchInput);
+  if (mobileSearchInput)
+    mobileSearchInput.addEventListener("input", handleSearchInput);
 
-  filterCampus.addEventListener('change', renderExplorerRooms);
-  filterFloor.addEventListener('change', renderExplorerRooms);
-  filterCapacity.addEventListener('change', renderExplorerRooms);
-  toggleAvailableOnly.addEventListener('change', renderExplorerRooms);
-  sortSelect.addEventListener('change', renderExplorerRooms);
+  filterCampus.addEventListener("change", renderExplorerRooms);
+  filterFloor.addEventListener("change", renderExplorerRooms);
+  filterCapacity.addEventListener("change", renderExplorerRooms);
+  toggleAvailableOnly.addEventListener("change", renderExplorerRooms);
+  sortSelect.addEventListener("change", renderExplorerRooms);
 
   categoryChips.forEach((chip) => {
-    chip.addEventListener('click', () => {
+    chip.addEventListener("click", () => {
       const clickedCategory = chip.dataset.category;
-      if (activeCategory === clickedCategory && clickedCategory !== 'all') {
-        activeCategory = 'all';
+      if (activeCategory === clickedCategory && clickedCategory !== "all") {
+        activeCategory = "all";
       } else {
         activeCategory = clickedCategory;
       }
-      categoryChips.forEach((c) => c.classList.toggle('active', c.dataset.category === activeCategory));
+      categoryChips.forEach((c) =>
+        c.classList.toggle("active", c.dataset.category === activeCategory),
+      );
       renderExplorerRooms();
     });
   });
@@ -404,7 +435,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Auto-open modal if redirected from Landing page with ?book=E1-204
   const urlParams = new URLSearchParams(window.location.search);
-  const autoBookRoomId = urlParams.get('book');
+  const autoBookRoomId = urlParams.get("book");
   if (autoBookRoomId) {
     openBookingModal(autoBookRoomId);
   }

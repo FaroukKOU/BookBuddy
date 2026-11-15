@@ -1,27 +1,28 @@
-/**
- * Screen 2: Public Landing & Room Discovery Logic
- * Loads room and event data from BookBuddyStore and handles guest filtering.
- */
-
-// Fallback room photography if local /assets/images/*.jpg files are not yet added
+// Fallback room photography if local /assets/images/*.png files are not yet added
 const DEMO_ROOM_PHOTOS = {
-  'E1-204': 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80',
-  'E1-108': 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80',
-  'E1-302': 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=700&q=80',
-  'E1-G04': 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80',
-  'E1-211': 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=700&q=80',
-  'E1-315': 'https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=700&q=80'
+  "E1-204":
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80",
+  "E1-108":
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=80",
+  "E1-302":
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=700&q=80",
+  "E1-G04":
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80",
+  "E1-211":
+    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=700&q=80",
+  "E1-315":
+    "https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&w=700&q=80",
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await window.BookBuddyStore.init();
 
-  const roomsGrid = document.getElementById('landing-rooms-grid');
-  const eventsGrid = document.getElementById('landing-events-grid');
-  const campusSelect = document.getElementById('header-campus-select');
-  const campusHeading = document.getElementById('campus-heading');
-  const searchForm = document.getElementById('hero-search-form');
-  const capacitySelect = document.getElementById('filter-capacity');
+  const roomsGrid = document.getElementById("landing-rooms-grid");
+  const eventsGrid = document.getElementById("landing-events-grid");
+  const campusSelect = document.getElementById("header-campus-select");
+  const campusHeading = document.getElementById("campus-heading");
+  const searchForm = document.getElementById("hero-search-form");
+  const capacitySelect = document.getElementById("filter-capacity");
 
   const allRooms = window.BookBuddyStore.getRooms();
   const allEvents = window.BookBuddyStore.getEvents();
@@ -41,21 +42,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    roomsGrid.innerHTML = rooms.map((room) => {
-      const isAvailable = room.status === 'available';
-      const badgeClass = isAvailable ? 'badge-available' : 'badge-full';
-      const badgeSymbol = isAvailable ? '✓' : '✕';
-      const fallbackUrl = DEMO_ROOM_PHOTOS[room.id] || DEMO_ROOM_PHOTOS['E1-204'];
+    roomsGrid.innerHTML = rooms
+      .map((room) => {
+        const isAvailable = room.status === "available";
+        const badgeClass = isAvailable ? "badge-available" : "badge-full";
+        const badgeSymbol = isAvailable ? "✓" : "✕";
+        const fallbackUrl =
+          DEMO_ROOM_PHOTOS[room.id] || DEMO_ROOM_PHOTOS["E1-204"];
 
-      const amenitiesMarkup = room.amenities
-        .map((item) => `<span class="amenity-text">${item}</span>`)
-        .join('');
+        const amenitiesMarkup = room.amenities
+          .map((item) => `<span class="amenity-text">${item}</span>`)
+          .join("");
 
-      const actionButton = isAvailable
-        ? `<a href="auth.html?mode=login&room=${encodeURIComponent(room.id)}" class="btn btn-outline btn-block">Log in to reserve</a>`
-        : `<button type="button" class="btn btn-disabled btn-block" disabled>Currently unavailable</button>`;
+        const actionButton = isAvailable
+          ? `<a href="auth.html?mode=login&room=${encodeURIComponent(room.id)}" class="btn btn-outline btn-block">Log in to reserve</a>`
+          : `<button type="button" class="btn btn-disabled btn-block" disabled>Currently unavailable</button>`;
 
-      return `
+        return `
         <article class="guest-room-card">
           <div class="room-card-media" style="background: ${room.fallbackGradient};">
             <img
@@ -84,7 +87,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </article>
       `;
-    }).join('');
+      })
+      .join("");
   }
 
   /**
@@ -93,12 +97,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   function renderEvents(events) {
     if (!eventsGrid) return;
 
-    eventsGrid.innerHTML = events.map((evt) => {
-      const iconSvg = evt.iconType === 'tutor'
-        ? `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>`
-        : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+    eventsGrid.innerHTML = events
+      .map((evt) => {
+        const iconSvg =
+          evt.iconType === "tutor"
+            ? `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>`
+            : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
 
-      return `
+        return `
         <article class="event-card">
           <div class="event-icon-box">
             ${iconSvg}
@@ -110,7 +116,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </article>
       `;
-    }).join('');
+      })
+      .join("");
   }
 
   // Initial render
@@ -119,27 +126,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Update heading when Campus dropdown changes
   if (campusSelect && campusHeading) {
-    campusSelect.addEventListener('change', (e) => {
+    campusSelect.addEventListener("change", (e) => {
       campusHeading.textContent = `Spaces at ${e.target.value}`;
     });
   }
 
   // Filter rooms when user clicks "Find Available Rooms"
   if (searchForm) {
-    searchForm.addEventListener('submit', (e) => {
+    searchForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const capValue = capacitySelect ? capacitySelect.value : 'all';
+      const capValue = capacitySelect ? capacitySelect.value : "all";
 
       const filtered = allRooms.filter((room) => {
-        if (capValue === 'all') return true;
-        if (capValue === '2') return room.capacity <= 4;
-        if (capValue === '6') return room.capacity >= 4 && room.capacity <= 6;
-        if (capValue === '8') return room.capacity >= 8;
+        if (capValue === "all") return true;
+        if (capValue === "2") return room.capacity <= 4;
+        if (capValue === "6") return room.capacity >= 4 && room.capacity <= 6;
+        if (capValue === "8") return room.capacity >= 8;
         return true;
       });
 
       renderGuestRooms(filtered);
-      document.getElementById('spaces-section').scrollIntoView({ behavior: 'smooth' });
+      document
+        .getElementById("spaces-section")
+        .scrollIntoView({ behavior: "smooth" });
     });
   }
 });

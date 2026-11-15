@@ -48,7 +48,7 @@
       "status": "available",
       "statusText": "Available",
       "amenities": ["Whiteboard", "TV"],
-      "image": "assets/images/room-e1-204.jpg",
+      "image": "assets/images/room-e1-204.png",
       "fallbackGradient": "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)"
     },
     {
@@ -62,7 +62,7 @@
       "status": "full",
       "statusText": "Full",
       "amenities": ["Whiteboard", "Monitor"],
-      "image": "assets/images/room-e1-108.jpg",
+      "image": "assets/images/room-e1-108.png",
       "fallbackGradient": "linear-gradient(135deg, #7C2D12 0%, #B45309 100%)"
     },
     {
@@ -76,7 +76,7 @@
       "status": "available",
       "statusText": "Available",
       "amenities": ["Projector", "Whiteboard"],
-      "image": "assets/images/room-e1-302.jpg",
+      "image": "assets/images/room-e1-302.png",
       "fallbackGradient": "linear-gradient(135deg, #0F172A 0%, #334155 100%)"
     },
     {
@@ -90,7 +90,7 @@
       "status": "available",
       "statusText": "Available",
       "amenities": ["PC stations", "TV"],
-      "image": "assets/images/lab-e1-g04.jpg",
+      "image": "assets/images/lab-e1-g04.png",
       "fallbackGradient": "linear-gradient(135deg, #064E3B 0%, #10B981 100%)"
     },
     {
@@ -104,7 +104,7 @@
       "status": "full",
       "statusText": "Full",
       "amenities": ["Monitor", "Quiet zone"],
-      "image": "assets/images/room-e1-211.jpg",
+      "image": "assets/images/room-e1-211.png",
       "fallbackGradient": "linear-gradient(135deg, #D97706 0%, #F59E0B 100%)"
     },
     {
@@ -118,7 +118,7 @@
       "status": "available",
       "statusText": "Available",
       "amenities": ["Projector", "Conference"],
-      "image": "assets/images/room-e1-315.jpg",
+      "image": "assets/images/room-e1-315.png",
       "fallbackGradient": "linear-gradient(135deg, #1E293B 0%, #475569 100%)"
     }
   ],

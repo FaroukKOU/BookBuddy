@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Screen 3: Authentication (Login & Student Registration) Styles
-   ========================================================================== */
-
 .auth-split-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -25,7 +21,7 @@
   color: var(--color-text-inverse);
 }
 
-.brand-logo-icon-white {
+/* .brand-logo-icon-white {
   width: 34px;
   height: 34px;
   border-radius: 9px;
@@ -34,7 +30,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .brand-panel-center {
   max-width: 470px;
@@ -271,12 +267,15 @@
   .auth-split-layout {
     grid-template-columns: 1fr;
   }
+
   .auth-brand-panel {
     padding: 32px 24px;
   }
+
   .campus-illustration {
     display: none;
   }
+
   .brand-panel-subtitle {
     margin-bottom: 16px;
   }
@@ -286,6 +285,7 @@
   .auth-card {
     padding: 24px 18px;
   }
+
   .brand-panel-title {
     font-size: 1.85rem;
   }
